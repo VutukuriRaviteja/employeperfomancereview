@@ -1,40 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import reduxThunk from 'redux-thunk';
-
-import App from './containers/app';
-import Welcome from './containers/welcome';
-import Signin from './containers/signin';
-import AdminEmployee from './containers/adminEmployee';
-import Employee from './containers/employee';
-import Admin from './containers/admin';
-import reducers from './reducers';
-import { AUTH_USER } from './actions/types'
-import { composeWithDevTools } from 'remote-redux-devtools';
-
-const composeEnhancers = composeWithDevTools({ realtime: true, port: 8080 });
-const store = createStore(reducers, composeEnhancers(
-    applyMiddleware(reduxThunk)
-));
-
-if(localStorage.getItem('token')) {
-    store.dispatch({type: AUTH_USER});
-}
-
-
-ReactDOM.render(
-  <Provider store={store}>
-      <Router history={browserHistory}>
-          <Route path="/" component={App}>
-              <IndexRoute component={Welcome}/>
-              <Route path="signin" component={Signin}/>
-              <Route path="admin" component={Admin}/>
-              <Route path="admin/:employeeId" component={AdminEmployee}/>
-              <Route path="employee/:employeeId" component={Employee} />
-          </Route>
-      </Router>
-  </Provider>
-  , document.querySelector('.container'));
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/style/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- toast css-->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  </head>
+  <body>
+    <div class="container"></div>
+  </body>
+  <script src="/bundle.js"></script>
+</html>
